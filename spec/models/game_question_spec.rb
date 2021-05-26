@@ -34,4 +34,10 @@ RSpec.describe GameQuestion, type: :model do
       expect(game_question.level).to eq(game_question.question.level) 
     end
   end
+
+  context '.correct_answer_key' do
+    it 'returns correct variant' do
+      expect(game_question.correct_answer_key).to eq('b')
+    end
+  end
 end
