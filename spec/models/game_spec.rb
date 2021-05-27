@@ -122,4 +122,29 @@ RSpec.describe Game, type: :model do
       expect(game_w_questions.status).to eq(:money)
     end
   end
+
+  context '.answer_current_question!' do
+    let(:correct_answer) { game_w_questions.current_game_question.correct_answer_key }
+
+    it 'returns true if answer is correct' do
+      expect(game_w_questions.answer_current_question!(correct_answer)).to be_truthy
+    end
+
+    it "returns false if answer is incorrect" do
+      expect(game_w_questions.answer_current_question!('hello')).to be_falsey
+    end
+
+    it 'returns false when time out' do
+      game_w_questions.finished_at = Time.now
+
+      expect(game_w_questions.answer_current_question!(correct_answer)).to be_falsey
+    end
+
+    it 'correct when last question' do
+      game_w_questions.current_level = Question::QUESTION_LEVELS.last
+      game_w_questions.answer_current_question!(correct_answer)
+
+      expect(game_w_questions.status).to eq(:won)
+    end
+  end
 end
