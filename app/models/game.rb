@@ -133,6 +133,18 @@ class Game < ActiveRecord::Base
     end
   end
 
+  def use_help(help_type)
+    case help_type
+      when :audience_help
+        unless audience_help_used
+          toggle!(:audience_help_used)
+          current_game_question.add_audience_help
+          return true
+        end
+    end
+    false
+  end
+
   # Метод take_money! записывает юзеру игровую сумму на счет и завершает игру,
   def take_money!
     # Из законченной или неначатой игры нечего брать
