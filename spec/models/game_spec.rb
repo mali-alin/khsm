@@ -69,7 +69,7 @@ RSpec.describe Game, type: :model do
 
       # Игра продолжается
       expect(game_w_questions.status).to eq(:in_progress)
-      expect(game_w_questions.finished?).to be_falsey
+      expect(game_w_questions.finished?).to be false
     end
 
     it '.take_money! finishes the game' do
@@ -82,7 +82,7 @@ RSpec.describe Game, type: :model do
       expect(prize).to be > 0
 
       expect(game_w_questions.status).to eq :money
-      expect(game_w_questions.finished?).to be_truthy
+      expect(game_w_questions.finished?).to be true
       expect(user.balance).to eq prize
     end
 
@@ -99,7 +99,7 @@ RSpec.describe Game, type: :model do
   context '.status' do
     before(:each) do
       game_w_questions.finished_at = Time.now
-      expect(game_w_questions.finished?).to be_truthy
+      expect(game_w_questions.finished?).to be true
     end
 
     it ':won' do
@@ -128,10 +128,10 @@ RSpec.describe Game, type: :model do
 
     context 'with correct answers' do
       it 'returns true if answer is correct' do
-        expect(game_w_questions.answer_current_question!(correct_answer)).to be_truthy
+        expect(game_w_questions.answer_current_question!(correct_answer)).to be true
         
         expect(game_w_questions.status).to eq(:in_progress)
-        expect(game_w_questions.finished?).to be_falsey
+        expect(game_w_questions.finished?).to be false
       end
 
       it 'correct when last question' do
@@ -139,25 +139,25 @@ RSpec.describe Game, type: :model do
         game_w_questions.answer_current_question!(correct_answer)
   
         expect(game_w_questions.status).to eq(:won)
-        expect(game_w_questions.finished?).to be_truthy
+        expect(game_w_questions.finished?).to be true
       end
     end
 
     context 'with incorrect or late answers' do
       it "returns false if answer is incorrect" do
-        expect(game_w_questions.answer_current_question!('hello')).to be_falsey
+        expect(game_w_questions.answer_current_question!('hello')).to be false
         
         expect(game_w_questions.status).to be(:fail)
-        expect(game_w_questions.finished?).to be_truthy
+        expect(game_w_questions.finished?).to be true
       end
 
       it 'returns false when time out' do
         game_w_questions.finished_at = Time.now
   
-        expect(game_w_questions.answer_current_question!(correct_answer)).to be_falsey
+        expect(game_w_questions.answer_current_question!(correct_answer)).to be false
 
         expect(game_w_questions.status).to be(:money)
-        expect(game_w_questions.finished?).to be_truthy
+        expect(game_w_questions.finished?).to be true
       end
     end
   end
