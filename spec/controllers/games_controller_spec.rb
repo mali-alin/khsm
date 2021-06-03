@@ -124,9 +124,7 @@ RSpec.describe GamesController, type: :controller do
     end
     
     it 'answers wrong' do
-      answers = %w[a b c d]
-      
-      random_wrong_answer = (answers.reject { |answer| answer == 'd' } ).sample
+      random_wrong_answer = %w[a b c d].reject { |answer| answer == game_w_questions.current_game_question.correct_answer_key }.sample
 
       put :answer, id: game_w_questions.id, letter: random_wrong_answer
 
