@@ -141,6 +141,18 @@ class Game < ActiveRecord::Base
           current_game_question.add_audience_help
           return true
         end
+      when :fifty_fifty_help
+        unless fifty_fifty_used
+          toggle!(:fifty_fifty_used)
+          current_game_question.add_fifty_fifty_help
+          return true 
+        end
+      when :friend_call
+        unless friend_call_used
+          toggle!(:friend_call_used)
+          currrent_game_question.add_friend_call
+          return true
+        end
     end
     false
   end
