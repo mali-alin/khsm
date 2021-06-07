@@ -57,12 +57,16 @@ class GamesController < ApplicationController
       )
     end
 
-    if @game.finished?
-      # Если игра закончилась, отправялем юзера на свой профиль
-      redirect_to user_path(current_user)
-    else
-      # Иначе, обратно на экран игры
-      redirect_to game_path(@game)
+    respond_to do |format|
+      format.html do
+        if @answer_is_correct && !@game.finished?
+          redirect_to game_path(@game)
+        else
+          redirect_to user_path(current_user)
+        end
+      end
+
+      format.js {}
     end
   end
 
