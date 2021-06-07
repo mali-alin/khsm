@@ -150,7 +150,7 @@ class Game < ActiveRecord::Base
       when :friend_call
         unless friend_call_used
           toggle!(:friend_call_used)
-          currrent_game_question.add_friend_call
+          current_game_question.add_friend_call
           return true
         end
     end
