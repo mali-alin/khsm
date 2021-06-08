@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.feature 'User visits other profiles', type: :feature do
-  let(:user1) { FactoryBot.create(:user)}
-  let(:user2) { FactoryBot.create(:user)}
+  let(:user1) { FactoryBot.create(:user) }
+  let(:user2) { FactoryBot.create(:user) }
 
   let!(:games) { 
     [
@@ -19,6 +19,7 @@ RSpec.feature 'User visits other profiles', type: :feature do
     visit "/users/#{user1.id}"
 
     expect(page).not_to have_content('Сменить имя и пароль')
+    expect(page).to have_content("#{user1.name}")
     expect(page).to have_content('деньги')
     expect(page).to have_content('08 июня, 15:50')
     expect(page).to have_content('07 июня, 16:30')
