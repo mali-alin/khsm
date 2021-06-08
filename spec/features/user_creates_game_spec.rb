@@ -28,7 +28,5 @@ RSpec.feature 'User creates game', type: :feature do
     expect(page).to have_content('1381')
     expect(page).to have_content('1382')
     expect(page).to have_content('1383')
-
-    save_and_open_page
   end
 end
