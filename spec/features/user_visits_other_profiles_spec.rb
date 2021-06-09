@@ -4,9 +4,10 @@ RSpec.feature 'User visits other profiles', type: :feature do
   let(:user1) { FactoryBot.create(:user) }
   let(:user2) { FactoryBot.create(:user) }
 
-  let!(:games) do [
-     FactoryBot.create(:game, user: user1, finished_at: '08.06.2021 16:10:00', created_at: '08.06.2021 15:50:10', current_level: 4, prize: 0),
-     FactoryBot.create(:game, user: user1, finished_at: '07.06.2021 16:56:00', created_at: '07.06.2021 16:30:10', current_level: 2, prize: 0)
+  let!(:games) do
+    [
+      FactoryBot.create(:game, user: user1, finished_at: '08.06.2021 16:10:00', created_at: '08.06.2021 15:50:10', current_level: 4, prize: 0),
+      FactoryBot.create(:game, user: user1, finished_at: '07.06.2021 16:56:00', created_at: '07.06.2021 16:30:10', current_level: 2, prize: 0)
     ]
   end
   
