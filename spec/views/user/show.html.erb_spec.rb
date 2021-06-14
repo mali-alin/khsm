@@ -3,9 +3,7 @@ require 'rails_helper'
 RSpec.describe 'users/show', type: :view do
   before(:each) do
     @user = assign(:user, FactoryBot.create(:user, name: 'Alina'))
-    
-    assign(:games, [FactoryBot.build_stubbed(:game, id: 1, current_level: 5)])
-
+        
     render
   end
   
@@ -24,8 +22,14 @@ RSpec.describe 'users/show', type: :view do
       expect(rendered).to match 'Сменить имя и пароль'
     end
 
-    it 'renders game fragment' do
-      expect(rendered).to match '5'      
+    it 'renders game fragment' do        
+      assign(:games, [FactoryBot.build_stubbed(:game)])
+  
+      stub_template 'users/_game.html.erb' => 'Game goes here'
+  
+      render
+  
+      expect(rendered).to have_content 'Game goes here'            
     end
   end
 
